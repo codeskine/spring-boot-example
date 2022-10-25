@@ -1,11 +1,16 @@
 package org.codeskine.tutorial.springboot.controller;
 
 
-import java.util.List;
 import org.codeskine.tutorial.springboot.DemoMetadata;
 import org.codeskine.tutorial.springboot.model.User;
 import org.codeskine.tutorial.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +31,12 @@ public class UserRestController {
   }
 
   @GetMapping
-  public List<User> findAll() {
-    return repository.findAll();
+  public Page<User> findAll(@PageableDefault(page = 0, size = 20)
+        @SortDefault.SortDefaults({
+            @SortDefault(sort = "name", direction = Sort.Direction.DESC),
+            @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+        }) Pageable pageable) {
+    return repository.findAll(pageable);
   }
 
   @GetMapping(path = "/{email}")
