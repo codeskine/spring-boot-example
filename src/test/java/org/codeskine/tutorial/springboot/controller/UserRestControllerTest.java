@@ -3,6 +3,7 @@ package org.codeskine.tutorial.springboot.controller;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -15,7 +16,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest
+@SpringBootTest({
+    "my.first-name=Mario",
+    "my.last-name=Bros",
+    "my.city=Rome"})
 @Testcontainers
 @AutoConfigureMockMvc
 @Import(ApplicationTestConfiguration.class)
@@ -32,6 +36,7 @@ class UserRestControllerTest {
         .andExpect(jsonPath("$.totalElements", is(2)));
   }
 
+
   @Test
   void findByEmail() throws Exception {
     this.mockMvc.perform(get("/users/s.veloccia@innen.it"))
@@ -39,11 +44,18 @@ class UserRestControllerTest {
         .andExpect(status().isOk());
   }
 
+  @Test
+  void findByEmail_expectedNotFound() throws Exception {
+    this.mockMvc.perform(get("/users/s.veloccia"))
+        .andDo(print())
+        .andExpect(status().isNotFound());
+  }
 
   @Test
-  void greetings()  throws Exception {
+  void greetings() throws Exception {
     this.mockMvc.perform(get("/users/greetings"))
         .andDo(print())
-        .andExpect(status().isOk());
+        .andExpect(status().isOk())
+        .andExpect(content().string(is("HI!!!! Mario Bros, welcome to Rome!!!!")));
   }
 }
