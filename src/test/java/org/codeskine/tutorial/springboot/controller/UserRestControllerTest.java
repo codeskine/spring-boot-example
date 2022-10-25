@@ -39,4 +39,11 @@ class UserRestControllerTest {
         .andExpect(status().isOk());
   }
 
+
+  @Test
+  void greetings()  throws Exception {
+    this.mockMvc.perform(get("/users/greetings"))
+        .andDo(print())
+        .andExpect(status().isOk());
+  }
 }

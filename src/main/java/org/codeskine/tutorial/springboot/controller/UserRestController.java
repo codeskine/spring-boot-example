@@ -1,6 +1,5 @@
 package org.codeskine.tutorial.springboot.controller;
 
-
 import org.codeskine.tutorial.springboot.DemoMetadata;
 import org.codeskine.tutorial.springboot.model.User;
 import org.codeskine.tutorial.springboot.repository.UserRepository;
