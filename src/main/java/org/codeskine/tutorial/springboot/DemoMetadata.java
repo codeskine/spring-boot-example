@@ -1,15 +1,14 @@
 package org.codeskine.tutorial.springboot;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
 @ConfigurationProperties(prefix = "my")
 public class DemoMetadata {
 
-	private String firstName;
-	private String lastName;
-	private String city;
+  private String firstName;
+  private String lastName;
+  private String city;
 
 }

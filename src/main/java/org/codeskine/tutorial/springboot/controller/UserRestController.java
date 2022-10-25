@@ -32,7 +32,7 @@ public class UserRestController {
 
   @GetMapping(path = "/{email}")
   public ResponseEntity<User> findByEmail(@PathVariable("email") String email) {
-    User user = repository.findByEmail(email);
+    var user = repository.findByEmail(email);
     if (user == null) {
       return ResponseEntity.notFound().build();
     }
