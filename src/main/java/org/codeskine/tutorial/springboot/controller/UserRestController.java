@@ -6,7 +6,6 @@ import org.codeskine.tutorial.springboot.model.User;
 import org.codeskine.tutorial.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -31,11 +30,11 @@ public class UserRestController {
   }
 
   @GetMapping
-  public Page<User> findAll(@PageableDefault(page = 0, size = 20)
-        @SortDefault.SortDefaults({
-            @SortDefault(sort = "name", direction = Sort.Direction.DESC),
-            @SortDefault(sort = "id", direction = Sort.Direction.ASC)
-        }) Pageable pageable) {
+  public Page<User> findAll(@PageableDefault(size = 20)
+  @SortDefault.SortDefaults({
+      @SortDefault(sort = "name", direction = Sort.Direction.DESC),
+      @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+  }) Pageable pageable) {
     return repository.findAll(pageable);
   }
 
