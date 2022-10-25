@@ -1,20 +1,15 @@
 package org.codeskine.tutorial.springboot.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.List;
 import org.codeskine.tutorial.springboot.configuration.ApplicationTestConfiguration;
 import org.codeskine.tutorial.springboot.model.User;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
@@ -26,9 +21,12 @@ class UserRepositoryTest {
   private UserRepository userRepository;
 
   @Test
-  void shouldReturnListOfCustomerWithMatchingRate() {
-    List<User> customers = userRepository.findAll();
+  void findByEmail() {
+    User user = userRepository.findByEmail("s.veloccia@innen.it");
 
-    assertEquals(2, customers.size());
+    assertNotNull(user);
+    assertEquals("s.veloccia@innen.it", user.getEmail());
+    assertEquals("Stefano", user.getFirstName());
+
   }
 }

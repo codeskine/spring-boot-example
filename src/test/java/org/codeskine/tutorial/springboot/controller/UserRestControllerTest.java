@@ -32,4 +32,11 @@ class UserRestControllerTest {
         .andExpect(jsonPath("$.totalElements", is(2)));
   }
 
+  @Test
+  void findByEmail() throws Exception {
+    this.mockMvc.perform(get("/users/s.veloccia@innen.it"))
+        .andDo(print())
+        .andExpect(status().isOk());
+  }
+
 }
