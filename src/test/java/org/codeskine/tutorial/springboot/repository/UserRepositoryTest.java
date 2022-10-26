@@ -1,8 +1,9 @@
 package org.codeskine.tutorial.springboot.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Optional;
 import org.codeskine.tutorial.springboot.configuration.ApplicationTestConfiguration;
 import org.codeskine.tutorial.springboot.model.User;
 import org.junit.jupiter.api.Test;
@@ -22,11 +23,11 @@ class UserRepositoryTest {
 
   @Test
   void findByEmail() {
-    User user = userRepository.findByEmail("s.veloccia@innen.it");
+    Optional<User> optional = userRepository.findByEmail("s.veloccia@innen.it");
 
-    assertNotNull(user);
-    assertEquals("s.veloccia@innen.it", user.getEmail());
-    assertEquals("Stefano", user.getFirstName());
+    assertThat(optional).isPresent();
+    assertEquals("s.veloccia@innen.it", optional.get().getEmail());
+    assertEquals("Stefano", optional.get().getFirstName());
 
   }
 }

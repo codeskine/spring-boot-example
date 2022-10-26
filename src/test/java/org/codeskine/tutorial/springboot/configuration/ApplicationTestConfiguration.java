@@ -31,7 +31,7 @@ public class ApplicationTestConfiguration {
   }
 
   @Bean
-  public MongoTemplate mongoTemplate() throws Exception {
+  public MongoTemplate mongoTemplate() {
     ConnectionString connectionString = new ConnectionString(mongoDBContainer.getReplicaSetUrl());
     MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
         .applyConnectionString(connectionString)
@@ -47,8 +47,8 @@ public class ApplicationTestConfiguration {
   CommandLineRunner init(MongoOperations operations) {
     return args -> {
       operations.dropCollection(User.class);
-      operations.insert(new User("Stefano", "Veloccia", "s.veloccia@innen.it"));
-      operations.insert(new User("Alexander", "De Carlo", "a.decarlo@innen.it"));
+      operations.insert(User.of("Stefano", "Veloccia", "s.veloccia@innen.it"));
+      operations.insert(User.of("Alexander", "De Carlo", "a.decarlo@innen.it"));
     };
   }
 }

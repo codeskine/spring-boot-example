@@ -1,0 +1,35 @@
+my:
+  first-name: Stefano
+  last-name: Veloccia
+  city: Rome
+
+server:
+  port: 9090
+  servlet:
+    context-path: /spring-boot
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/spring-boot
+          jwk-set-uri: http://localhost:8081/realms/spring-boot/protocol/openid-connect/certs
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: spring-boot
+
+springdoc:
+  swagger-ui:
+    oauth:
+      use-pkce-with-authorization-code-grant: true
+      client-id: spring-boot-tutorial
+      client-secret: K12Hm5PVgXsxF3jOcmFVlCuKyg4jDdRB
+      realm: spring-boot
+      app-name: app-name
+      oauth2-redirect-url: https://keycloak.service.example.org
+  api-docs:
+    enabled: true
+
+
