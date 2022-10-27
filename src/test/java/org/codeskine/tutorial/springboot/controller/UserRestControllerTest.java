@@ -24,10 +24,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureMockMvc
 @Import(ApplicationTestConfiguration.class)
 class UserRestControllerTest {
-
   @Autowired
   private MockMvc mockMvc;
-
   @Test
   void findAll() throws Exception {
     this.mockMvc.perform(get("/users"))
@@ -35,14 +33,12 @@ class UserRestControllerTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.totalElements", is(2)));
   }
-
   @Test
   void findByEmail() throws Exception {
     this.mockMvc.perform(get("/users/s.veloccia@innen.it"))
         .andDo(print())
         .andExpect(status().isOk());
   }
-
   @Test
   void findByEmail_expectedNotFound() throws Exception {
     this.mockMvc.perform(get("/users/s.veloccia"))

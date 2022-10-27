@@ -66,6 +66,7 @@ public class UserRestController {
   @Operation(summary = "Get all users from db")
   @SecurityRequirement(name = AUTHENTICATION_TYPE)
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+
   public Page<User> findAll(@ParameterObject @PageableDefault(size = 20)
   @SortDefault.SortDefaults({
       @SortDefault(sort = "name", direction = Sort.Direction.DESC),
@@ -98,7 +99,6 @@ public class UserRestController {
                 principal.getTokenAttributes().get("given_name"),
                 principal.getTokenAttributes().get("family_name"), metadata.getCity())));
   }
-
 
 
 }

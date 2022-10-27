@@ -1,7 +1,7 @@
 my:
-  first-name: Stefano
   last-name: Veloccia
   city: Rome
+  first-name:
 
 server:
   port: 9090
@@ -28,7 +28,7 @@ springdoc:
       client-secret: K12Hm5PVgXsxF3jOcmFVlCuKyg4jDdRB
       realm: spring-boot
       app-name: app-name
-      oauth2-redirect-url: https://keycloak.service.example.org
+    oauth2-redirect-url: https://keycloak.service.example.org
   api-docs:
     enabled: true
 

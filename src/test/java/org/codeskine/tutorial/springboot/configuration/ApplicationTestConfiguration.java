@@ -17,19 +17,15 @@ import org.testcontainers.containers.MongoDBContainer;
 
 @TestConfiguration
 public class ApplicationTestConfiguration {
-
   private static final MongoDBContainer mongoDBContainer;
-
   static {
     mongoDBContainer = new MongoDBContainer("mongo:latest");
     mongoDBContainer.start();
   }
-
   @DynamicPropertySource
   static void setProperties(DynamicPropertyRegistry registry) {
     registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
   }
-
   @Bean
   public MongoTemplate mongoTemplate() {
     ConnectionString connectionString = new ConnectionString(mongoDBContainer.getReplicaSetUrl());
